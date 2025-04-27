@@ -1,50 +1,49 @@
 package org.example.projetpfe.entity;
 
+
+
+import lombok.Data;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Data
 public class WeatherForecast {
-    private String date;
-    private double temperature;
-    private double precipitation;
-    private double windSpeed;
+    private String location = "Morocco";
+    private Instant lastUpdated = Instant.now();
+    private List<DailyForecast> forecasts;
 
-    // Constructeurs, Getters et Setters
-    public WeatherForecast() {}
-
-    public WeatherForecast(String date, double temperature, double precipitation, double windSpeed) {
-        this.date = date;
-        this.temperature = temperature;
-        this.precipitation = precipitation;
-        this.windSpeed = windSpeed;
+    // Helper method to get forecasts by date
+    public List<DailyForecast> getForecastsForDate(LocalDate date) {
+        return forecasts.stream()
+                .filter(f -> f.getForecastDate().equals(date))
+                .collect(Collectors.toList());
     }
 
-    public String getDate() {
-        return date;
+    public String getLocation() {
+        return location;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public double getTemperature() {
-        return temperature;
+    public Instant getLastUpdated() {
+        return lastUpdated;
     }
 
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
+    public void setLastUpdated(Instant lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
-    public double getPrecipitation() {
-        return precipitation;
+    public List<DailyForecast> getForecasts() {
+        return forecasts;
     }
 
-    public void setPrecipitation(double precipitation) {
-        this.precipitation = precipitation;
-    }
-
-    public double getWindSpeed() {
-        return windSpeed;
-    }
-
-    public void setWindSpeed(double windSpeed) {
-        this.windSpeed = windSpeed;
+    public void setForecasts(List<DailyForecast> forecasts) {
+        this.forecasts = forecasts;
     }
 }
